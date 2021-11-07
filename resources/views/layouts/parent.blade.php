@@ -86,7 +86,7 @@
                 <div id="collapseUser" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">User</a>
+                        <a class="collapse-item" href="{{ route('users.index') }}">User</a>
                         <a class="collapse-item" href="cards.html">Role</a>
                         <a class="collapse-item" href="cards.html">Permission</a>
                     </div>
@@ -159,7 +159,11 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @yield('content')
+                <div class="container-fluid">
+                    <div class="row">
+                        @yield('content')
+                    </div>
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
