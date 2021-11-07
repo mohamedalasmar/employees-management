@@ -114,7 +114,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
-        $user->delete();
-        return redirect()->route('users.index')->with('message', 'User Deleted');
+        if (auth()->user()->id == $user->id) {
+            return redirect()->back()->with('message', 'You Are Trying To Delete Yourself');
+        } else {
+            $user->delete();
+            return redirect()->route('users.index')->with('message', 'User Deleted');
+        }
     }
 }
