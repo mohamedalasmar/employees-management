@@ -13,11 +13,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $user = User::all();
-        return response()->view('users.index', ['users' => $user]);
+        $users = User::all();
+        if ($request->has('search')) {
+            $users = User::where('username', 'like', "%{$request->search}%")->orWhere('email', 'like', "%{$request->search}")->get();
+        }
+        return response()->view('users.index', ['users' => $users]);
     }
 
     /**

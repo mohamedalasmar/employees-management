@@ -14,40 +14,55 @@
                 </div>
             @endif
             <div class="card-header">
-                <a href="{{ route('users.create') }}" class='float-right'>Create</a>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Manage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
+                <div class="row">
+                    <div class="col">
+                        <form action="{{ route('users.index') }}" method="get">
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <input type="search" class="form-control  mb-2" id="inlineFormInput" name="search">
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <a href="{{ route('users.create') }}" class='btn btn-primary mb-2'>Create</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>
-                                    <div class="row">
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a>
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger ml-1">Delete</button>
-                                        </form>
-                                    </div>
-
-                                </td>
+                                <th scope="col">ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Manage</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        <div class="row">
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a>
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger ml-1">Delete</button>
+                                            </form>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
