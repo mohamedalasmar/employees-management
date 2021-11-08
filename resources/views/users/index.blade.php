@@ -49,12 +49,18 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         <div class="row">
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a>
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger ml-1">Delete</button>
-                                            </form>
+                                            <div class="col col-sm-6">
+                                                <a href="{{ route('users.edit', $user->id) }}"
+                                                    class="btn btn-info">Edit</a>
+                                            </div>
+                                            <div class="col col-sm-6">
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger ml-1">Delete</button>
+                                                </form>
+                                            </div>
+
                                         </div>
 
                                     </td>
