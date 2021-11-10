@@ -32,24 +32,27 @@ class CountryController extends Controller
         ]);
         return redirect()->route('countries.index')->with('message', 'Country Created Successfully');
     }
-    public function edit(Country $country){
-        return response()->view('countries.edit',compact('country'));
+    public function edit(Country $country)
+    {
+        return response()->view('countries.edit', compact('country'));
     }
-    public function update(Request $request , Country $country){
+    public function update(Request $request, Country $country)
+    {
 
-        $this->validate($request,[
+        $this->validate($request, [
             'country_code' => 'required|max:3',
             'name' => 'required|string',
         ]);
         $country->update([
-            'country_code'=>$request->country_code,
-            'name'=>$request->name
+            'country_code' => $request->country_code,
+            'name' => $request->name
         ]);
-        return redirect()->route('countries.index')->with('message','Updated Country');
+        return redirect()->route('countries.index')->with('message', 'Updated Country');
     }
-    public function destroy(Country $country){
+    public function destroy(Country $country)
+    {
 
         $country->delete();
-        return redirect()->route('countries.index')->with('message','Deleted Country');
+        return redirect()->route('countries.index')->with('message', 'Deleted Country');
     }
 }
