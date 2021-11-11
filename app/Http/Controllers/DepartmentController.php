@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
-use App\Models\State;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
-class StateController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,11 @@ class StateController extends Controller
     public function index(Request $request)
     {
         //
-        $states = State::all();
+        $departments = Department::all();
         if ($request->has('search')) {
-            $states = State::where('name', 'like', "%{$request->search}%")->get();
+            $departments = Department::where('name', 'like', "%{$request->search}%")->get();
         }
-        return response()->view('states.index', ['states' => $states]);
+        return response()->view('departments.index',['departments'=>$departments]);
     }
 
     /**
@@ -31,8 +30,7 @@ class StateController extends Controller
     public function create()
     {
         //
-        $countries = Country::all();
-        return response()->view('states.create', compact('countries'));
+        return response()->view('departments.create');
     }
 
     /**
@@ -44,17 +42,13 @@ class StateController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-            'country_id' => 'string|required|exists:countries,id',
-            'name' => 'string|required',
+        $this->validate($request,[
+            'name'=>'required|string'
         ]);
-
-        State::create([
-            'country_id' => $request->country_id,
-            'name' => $request->name,
+        Department::create([
+            'name'=>$request->name
         ]);
-
-        return redirect()->route('states.index')->with('message', 'State Saved Successfully');
+        return redirect()->route('departments.index')->with('message','Department Saved Successfully');
     }
 
     /**
@@ -77,9 +71,8 @@ class StateController extends Controller
     public function edit($id)
     {
         //
-        $state = State::findOrFail($id);
-        $countries = Country::all();
-        return response()->view('states.edit', compact('state','countries'));
+        $department = Department::findOrFail($id);
+        return response()->view('departments.edit',compact('department'));
     }
 
     /**
@@ -92,18 +85,14 @@ class StateController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $states  = State::findOrFail($id);
+        $department = Department::findOrFail($id);
         $this->validate($request,[
-            'country_id'=>'string|required|exists:countries,id',
-            'name'=>'string|required',
+            'name'=>'required|string',
         ]);
-
-        $states->update([
-            'country_id'=>$request->country_id,
-            'name'=>$request->name,
+        $department->update([
+            'name'=>$request->name
         ]);
-
-        return redirect()->route('states.index')->with('message','Updated Successfully');
+        return redirect()->route('departments.index')->with('message', 'Department Updated Successfully');
 
     }
 
@@ -116,8 +105,9 @@ class StateController extends Controller
     public function destroy($id)
     {
         //
-        $states = State::findOrFail($id);
-        $states->delete();
-        return redirect()->route('states.index')->with('message', 'Deleted Successfully');
+        $department = Department::findOrFail($id);
+        $department->delete();
+        return redirect()->route('departments.index')->with('message', 'Department Deleted Successfully');
+
     }
 }

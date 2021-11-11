@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-grey-800">States</h1>
+        <h1 class="h3 mb-0 text-grey-800">cities</h1>
     </div>
     <div class="row ">
         <div class="card mx-auto">
@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <form action="{{ route('states.index') }}" method="get">
+                        <form action="{{ route('cities.index') }}" method="get">
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <input type="search" class="form-control  mb-2" id="inlineFormInput" name="search">
@@ -28,7 +28,7 @@
                         </form>
                     </div>
                     <div>
-                        <a href="{{ route('states.create') }}" class='btn btn-primary mb-2'>Create</a>
+                        <a href="{{ route('cities.create') }}" class='btn btn-primary mb-2'>Create</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -36,25 +36,25 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Country Name</th>
                                 <th scope="col">State Name</th>
+                                <th scope="col">City Name</th>
                                 <th scope="col">Manage</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($states as $state)
+                            @foreach ($cities as $city)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $state->country->name }}</td>
-                                    <td>{{ $state->name }}</td>
+                                    <td>{{ $city->state->name }}</td>
+                                    <td>{{ $city->name }}</td>
                                     <td>
                                         <div class="row">
                                             <div class="col col-sm-6">
-                                                <a href="{{ route('states.edit', $state->id) }}"
+                                                <a href="{{ route('cities.edit', $city->id) }}"
                                                     class="btn btn-info">Edit</a>
                                             </div>
                                             <div class="col col-sm-6">
-                                                <form action="{{ route('states.destroy', $state->id) }}" method="post">
+                                                <form action="{{ route('cities.destroy', $city->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger ml-1">Delete</button>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +27,10 @@ Route::get('/', function () {
 Route::resource('users', UserController::class);
 Route::resource('countries', CountryController::class);
 Route::resource('states', StateController::class);
+Route::resource('cities', CityController::class);
+Route::resource('departments', DepartmentController::class);
 Route::post('users/{id}/change-password', [ChangePasswordController::class, 'changePassword'])->name('changepassword');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

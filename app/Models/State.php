@@ -9,10 +9,15 @@ class State extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['country_id','name'];
+    protected $fillable = ['country_id', 'name'];
 
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    public function cities()
+    {
+        return $this->hasMany(City::class,'state_id','id');
     }
 }
