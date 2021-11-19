@@ -134,7 +134,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                    <div class="form-group row">
+                                <div class="form-group row">
                                     <label
                                         for="city"
                                         class="
@@ -173,12 +173,17 @@
                                     </label>
                                     <div class="col-md-6">
                                         <select
+                                            v-model="form.department_id"
                                             name="department"
                                             id="department"
                                             class="form-control"
                                         >
-                                            <option value="">
-                                                Open This Select Menu
+                                            <option
+                                                v-for="department in departments"
+                                                :key="department.id"
+                                                :value="department.id"
+                                            >
+                                                {{ department.name }}
                                             </option>
                                         </select>
                                     </div>
@@ -307,6 +312,7 @@ export default {
     },
     created() {
         this.getCountries();
+        this.getDepartments();
     },
     methods: {
         getCountries() {
@@ -334,6 +340,16 @@ export default {
                 .get("/api/employees/" + this.form.state_id + "/cities")
                 .then((response) => {
                     this.cities = response.data;
+                })
+                .catch((error) => {
+                    console.log(console.error);
+                });
+        },
+        getDepartments() {
+            axios
+                .get("/api/employees/departments")
+                .then((response) => {
+                    this.departments = response.data;
                 })
                 .catch((error) => {
                     console.log(console.error);

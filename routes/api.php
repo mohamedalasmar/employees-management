@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/employees/countries', [EmployeeDataController::class, 'getCountries']);
-Route::get('/employees/{country}/states', [EmployeeDataController::class, 'getStates']);
-Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'getCities']);
-Route::get('/employees/get-departments',[EmployeeDataController::class,'getDepartments']);
+Route::get('/employees/countries', [EmployeeDataController::class, 'countries']);
+Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);
+Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);
+Route::get('/employees/departments',[EmployeeDataController::class,'departments']);
