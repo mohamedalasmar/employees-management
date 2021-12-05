@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form>
+                            <form @submit.prevent="storeEmployee">
                                 <div class="form-group row">
                                     <label
                                         for="first_name"
@@ -30,10 +30,10 @@
 
                                     <div class="col-md-6">
                                         <input
+                                            v-model="form.first_name"
                                             id="first_name"
                                             type="text"
                                             class="form-control"
-                                            value=""
                                             required
                                         />
                                     </div>
@@ -50,10 +50,10 @@
 
                                     <div class="col-md-6">
                                         <input
+                                            v-model="form.last_name"
                                             id="last_name"
                                             type="text"
                                             class="form-control"
-                                            value=""
                                             required
                                         />
                                     </div>
@@ -71,9 +71,9 @@
                                     <div class="col-md-6">
                                         <input
                                             id="middle_name"
+                                            v-model="form.middle_name"
                                             type="text"
                                             class="form-control"
-                                            value=""
                                             required
                                         />
                                     </div>
@@ -201,10 +201,10 @@
 
                                     <div class="col-md-6">
                                         <input
+                                            v-model="form.zip_code"
                                             id="zip_code"
                                             type="text"
                                             class="form-control"
-                                            value=""
                                             required
                                         />
                                     </div>
@@ -221,18 +221,18 @@
 
                                     <div class="col-md-6">
                                         <input
+                                            v-model="form.address"
                                             id="address"
                                             type="text"
                                             class="form-control"
-                                            value=""
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label
-                                        for="date_birth"
-                                        id="date_birth"
+                                        for="birth_date"
+                                        id="birth_date"
                                         class="
                                             col-md-4 col-form-label
                                             text-md-right
@@ -242,6 +242,7 @@
                                     </label>
                                     <div class="col-md-6">
                                         <datepicker
+                                            v-model="form.birth_date"
                                             input-class="form-control"
                                         ></datepicker>
                                     </div>
@@ -259,6 +260,7 @@
                                     </label>
                                     <div class="col-md-6">
                                         <datepicker
+                                            v-model="form.date_hired"
                                             input-class="form-control"
                                         ></datepicker>
                                     </div>
@@ -284,6 +286,7 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 import Datepicker from "vuejs-datepicker";
 export default {
     components: {
@@ -305,7 +308,7 @@ export default {
                 department_id: "",
                 city_id: "",
                 zip_code: "",
-                date_birth: null,
+                birth_date: null,
                 date_hired: null,
             },
         };
@@ -354,6 +357,30 @@ export default {
                 .catch((error) => {
                     console.log(console.error);
                 });
+        },
+        storeEmployee() {
+            axios
+                .post("/api/employees", {
+                    first_name: this.form.first_name,
+                    last_name: this.form.last_name,
+                    middle_name: this.form.middle_name,
+                    address: this.form.address,
+                    zip_code: this.form.zip_code,
+                    country_id: this.form.country_id,
+                    state_id: this.form.state_id,
+                    city_id: this.form.city_id,
+                    department_id: this.form.department_id,
+                    birth_date: this.format_date(this.form.birth_date),
+                    date_hired: this.format_date(this.form.date_hired),
+                })
+                .then((response) => {
+                    this.$router.push({ name: "EmployeeIndex" });
+                });
+        },
+        format_date(value) {
+            if (value) {
+                return moment(String(value)).format("YYYYMMDD");
+            }
         },
     },
 };

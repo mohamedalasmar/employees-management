@@ -31,11 +31,11 @@ Route::resource('countries', CountryController::class);
 Route::resource('states', StateController::class);
 Route::resource('cities', CityController::class);
 Route::resource('departments', DepartmentController::class);
-// Route::resource('employees', ApiEmployeeController::class);
+//Route::resource('employees', ApiEmployeeController::class);
 Route::post('users/{id}/change-password', [ChangePasswordController::class, 'changePassword'])->name('changepassword');
-Route::get('{any}',function(){
+Route::get('{any}', function () {
     return view('employees.index');
-})->where('any','.*');
+})->where('any', '.*');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
